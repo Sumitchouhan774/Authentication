@@ -21,7 +21,7 @@ export default function Home() {
         checkUser()
       }, [])
 
-      if(!user){ return <p>Loading....</p>} 
+      if(!user){ return <div className="flex flex-col items-center justify-center min-h-screen p-24 bg-gradient-to-b from-gray-400 to-black text-white"></div>} 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-24 bg-gradient-to-b from-gray-400 to-black text-white">
                 <div className="flex flex-col items-center justify-center w-full max-w-md p-6 bg-transparent rounded-4xl shadow-lg gap-2">

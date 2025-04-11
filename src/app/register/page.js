@@ -30,7 +30,8 @@ export default function Register() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-24 bg-gradient-to-b from-gray-400 to-black text-white">
       <div className="flex flex-col items-center justify-center w-full max-w-md p-6 bg-transparent rounded-4xl shadow-lg gap-2">
-        <h2 className="text-3xl font-bold mb-10">Sign Up</h2>
+        <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
+        <p className="mb-4">Already have an account? <a href="/login" className="text-black underline">Login</a></p>
         <div className="flex flex-col items-center justify-center w-full max-w-md p-6 gap-4">
           <input className="w-full p-3 mb-4 border border-gray-600 bg-[#252525] rounded-2xl shadow-md border-none outline-none" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
           <input className="w-full p-3 mb-4 border border-gray-600 bg-[#252525] rounded-2xl shadow-md border-none outline-none" placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)}/>
