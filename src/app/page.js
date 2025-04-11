@@ -1,43 +1,32 @@
-"use client";
-import React, { useState } from "react";
+"use client"
+import React, {useState, useEffect} from "react"
 import { supabase } from "@/lib/superBaseClient";
 import { useRouter } from "next/navigation";
-   
-
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
+    const [user, setUser] = useState(null);
+    const router = useRouter();
+    useEffect(() => {
+        const checkUser = async () => {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession()
+    
+          if (!session?.user) {
+            router.push('/login') // redirect if not logged in
+          } else {
+            setUser(session.user)
+          }
+        }
+    
+        checkUser()
+      }, [])
 
-  const handleSighnUp = () => {
-    const signUp = async () => {
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-      });
-      if (error) {
-        setError(error.message);
-        console.error("Error signing up:", error.message);
-      } else {
-        console.log("User signed up successfully:", data);
-        router.push("/login");
-      }
-    };
-    signUp();
-  };
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-24 bg-gradient-to-b from-gray-400 to-black text-white">
-      <div className="flex flex-col items-center justify-center w-full max-w-md p-6 bg-transparent rounded-4xl shadow-lg gap-2">
-        <h2 className="text-3xl font-bold mb-10">Sign Up</h2>
-        <div className="flex flex-col items-center justify-center w-full max-w-md p-6 gap-4">
-          <input className="w-full p-3 mb-4 border border-gray-600 bg-[#252525] rounded-2xl shadow-md border-none outline-none" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-          <input className="w-full p-3 mb-4 border border-gray-600 bg-[#252525] rounded-2xl shadow-md border-none outline-none" placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)}/>
-        </div>
-        {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" onClick={handleSighnUp} className="p-3 mb-4 border-b-6  border-black bg-[#252525] rounded-2xl shadow-md">SIGN UP</button>
-      </div>
-    </div>
-  );
-}
+      if(!user){ return <p>Loading....</p>} 
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen p-24 bg-gradient-to-b from-gray-400 to-black text-white">
+                <div className="flex flex-col items-center justify-center w-full max-w-md p-6 bg-transparent rounded-4xl shadow-lg gap-2">
+                <h2 className="text-3xl font-bold mb-10">Welcome to the Home Page</h2>
+                <p className="text-lg">This is the main content area.</p>
+            </div>
+        </div>)
+}       
